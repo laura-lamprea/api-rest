@@ -12,11 +12,11 @@ const loginWithCredentials = async (req: Request, res: Response) => {
             throw new ErrorHandler("ERROR_MISSING_PARAMETERS", 400);
 
         const user = await User.findOne({ email: email.toLowerCase() })
-        if (!user || !await bcrypt.compare(password, user.password)) 
+        if (!user || !await bcrypt.compare(password, user.password))
             throw new ErrorHandler("ERROR_INVALID_CREDENTIALS", 401)
-        
-        const token = jwt.sign({ userId: user.id, userName: user.username }, secretKey , { expiresIn: '1h' });
-        return res.status(200).send({ message: "success", token });
+
+        const token = jwt.sign({ userId: user.id, userName: user.username }, secretKey, { expiresIn: '1h' });
+        return res.status(200).send({ message: "success", token, email: user.email});
     } catch (error) {
         const customInstance = error instanceof ErrorHandler;
         const message = customInstance
