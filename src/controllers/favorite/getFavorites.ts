@@ -26,7 +26,7 @@ const getFavorites = async (req: Request, res: Response) => {
                 speed: pokemonData.stats[5].base_stat,
                 height: pokemonData.height,
                 weight: pokemonData.weight,
-                type: pokemonData.types.map((type: any) => type.name),
+                type: pokemonData.types.map((type: any) => type.type.name),
                 imgT: pokemonData.sprites.other['official-artwork'].front_default,
             };
 
